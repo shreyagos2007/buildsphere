@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    ```
+    <title>BuildSphere | Daily Progress</title>
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    ```
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    ```
+    <div class="brand">
+        <div class="logo-mark">BS</div>
+
+        <div>
+            <h1>BuildSphere</h1>
+            <span>Construction Management</span>
+        </div>
+    </div>
+
+    <div class="user-area">
+        <a href="/dashboard">Dashboard</a>
+        <button onclick="logout()">Logout</button>
+    </div>
+    ```
+
+</header>
+
+<main class="dashboard">
+
+    ```
+    <section class="welcome">
+
+        <div>
+            <p class="eyebrow">DAILY PROJECT MONITORING</p>
+            <h2>Daily Progress</h2>
+            <p>Record daily construction work and completion.</p>
+        </div>
+
+    </section>
+
+    <!-- ADMIN ONLY: ADD DAILY PROGRESS -->
+
+    <section class="module-card"
+             style="margin-bottom:30px;"
+             th:if="${role == 'ADMIN'}">
+
+        <h2>Add Daily Progress</h2>
+
+        <form th:action="@{/progress/save}"
+              th:object="${progress}"
+              method="post">
+
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+                <input type="text"
+                       th:field="*{project}"
+                       placeholder="Project"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="date"
+                       th:field="*{date}"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{workDescription}"
+                       placeholder="Work Description"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="number"
+                       min="0"
+                       max="100"
+                       th:field="*{completion}"
+                       placeholder="Completion %"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{remarks}"
+                       placeholder="Remarks"
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+            </div>
+
+            <button type="submit"
+                    style="margin-top:20px;padding:11px 20px;background:#0b2d5c;color:white;border:none;border-radius:8px;">
+
+                + Save Progress
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- PROGRESS RECORDS: ADMIN AND OWNER -->
+
+    <section class="modules">
+
+        <h2 th:text="${role == 'OWNER'} ? 'Progress Overview' : 'Progress Records'">
+            Progress Records
+        </h2>
+
+        <div class="module-card">
+
+            <div style="overflow-x:auto;">
+
+                <table style="width:100%;border-collapse:collapse;">
+
+                    <thead>
+
+                    <tr style="text-align:left;border-bottom:2px solid #e5e9f2;">
+
+                        <th style="padding:14px;">ID</th>
+                        <th style="padding:14px;">Project</th>
+                        <th style="padding:14px;">Date</th>
+                        <th style="padding:14px;">Work</th>
+                        <th style="padding:14px;">Completion</th>
+                        <th style="padding:14px;">Remarks</th>
+
+                        <th style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+                            Action
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="p : ${progressList}"
+                        style="border-bottom:1px solid #e5e9f2;">
+
+                        <td style="padding:14px;" th:text="${p.id}"></td>
+                        <td style="padding:14px;" th:text="${p.project}"></td>
+                        <td style="padding:14px;" th:text="${p.date}"></td>
+                        <td style="padding:14px;" th:text="${p.workDescription}"></td>
+                        <td style="padding:14px;" th:text="${p.completion + '%'}"></td>
+                        <td style="padding:14px;" th:text="${p.remarks}"></td>
+
+                        <!-- ADMIN ONLY: DELETE -->
+
+                        <td style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+
+                            <a th:href="@{/progress/delete/{id}(id=${p.id})}"
+                               onclick="return confirm('Delete this progress record?');"
+                               style="color:#b42318;font-weight:600;text-decoration:none;">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(progressList)}">
+
+                        <td th:colspan="${role == 'ADMIN' ? 7 : 6}"
+                            style="padding:30px;text-align:center;color:#7a8497;">
+
+                            No progress records yet.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+    ```
+
+</main>
+
+<script>
+    function logout() {
+        window.location.href = "/";
+    }
+</script>
+
+</body>
+</html>

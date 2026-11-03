@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildSphere | Workers</title>
+
+    ```
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    ```
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    ```
+    <div class="brand">
+        <div class="logo-mark">BS</div>
+        <div>
+            <h1>BuildSphere</h1>
+            <span>Construction Management</span>
+        </div>
+    </div>
+
+    <div class="user-area">
+        <a href="/dashboard">Dashboard</a>
+        <button onclick="logout()">Logout</button>
+    </div>
+    ```
+
+</header>
+
+<main class="dashboard">
+
+    ```
+    <section class="welcome">
+        <div>
+            <p class="eyebrow">WORKFORCE MANAGEMENT</p>
+            <h2>Workers</h2>
+
+            <p th:if="${role == 'ADMIN'}">
+                Manage construction workers and workforce information.
+            </p>
+
+            <p th:if="${role == 'OWNER'}">
+                Monitor your construction workforce and worker information.
+            </p>
+        </div>
+    </section>
+
+    <!-- ADMIN ONLY: ADD WORKER -->
+
+    <section class="module-card"
+             style="margin-bottom:30px;"
+             th:if="${role == 'ADMIN'}">
+
+        <h2>Add New Worker</h2>
+
+        <form th:action="@{/workers/save}"
+              th:object="${worker}"
+              method="post">
+
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+                <input type="text"
+                       th:field="*{name}"
+                       placeholder="Worker Name"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{phone}"
+                       placeholder="Phone Number"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{role}"
+                       placeholder="Worker Role"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{project}"
+                       placeholder="Project"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <select th:field="*{status}"
+                        required
+                        style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                    <option value="">Select Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+
+                </select>
+
+            </div>
+
+            <button type="submit"
+                    style="margin-top:20px;padding:11px 20px;background:#0b2d5c;color:white;border:none;border-radius:8px;cursor:pointer;">
+                + Add Worker
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- WORKER LIST: ADMIN AND OWNER -->
+
+    <section class="modules">
+
+        <h2 th:text="${role == 'OWNER' ? 'Workforce Overview' : 'All Workers'}">
+            All Workers
+        </h2>
+
+        <div class="module-card">
+
+            <div style="overflow-x:auto;">
+
+                <table style="width:100%;border-collapse:collapse;">
+
+                    <thead>
+
+                    <tr style="text-align:left;border-bottom:2px solid #e5e9f2;">
+
+                        <th style="padding:14px;">ID</th>
+                        <th style="padding:14px;">Name</th>
+                        <th style="padding:14px;">Phone</th>
+                        <th style="padding:14px;">Role</th>
+                        <th style="padding:14px;">Project</th>
+                        <th style="padding:14px;">Status</th>
+
+                        <th style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+                            Action
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="w : ${workers}"
+                        style="border-bottom:1px solid #e5e9f2;">
+
+                        <td style="padding:14px;" th:text="${w.id}"></td>
+                        <td style="padding:14px;" th:text="${w.name}"></td>
+                        <td style="padding:14px;" th:text="${w.phone}"></td>
+                        <td style="padding:14px;" th:text="${w.role}"></td>
+                        <td style="padding:14px;" th:text="${w.project}"></td>
+                        <td style="padding:14px;" th:text="${w.status}"></td>
+
+                        <!-- ADMIN ONLY: DELETE -->
+
+                        <td style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+
+                            <a th:href="@{/workers/delete/{id}(id=${w.id})}"
+                               onclick="return confirm('Delete this worker?');"
+                               style="color:#b42318;font-weight:600;text-decoration:none;">
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(workers)}">
+
+                        <td th:attr="colspan=${role == 'ADMIN' ? 7 : 6}"
+                            style="padding:30px;text-align:center;color:#7a8497;">
+                            No workers added yet.
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+    ```
+
+</main>
+
+<script>
+    function logout() {
+        window.location.href = "/";
+    }
+</script>
+
+</body>
+</html>

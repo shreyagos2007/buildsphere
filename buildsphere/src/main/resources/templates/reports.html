@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BuildSphere | Reports</title>
+
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="logo-mark">BS</div>
+
+        <div>
+            <h1>BuildSphere</h1>
+            <span>Construction Management</span>
+        </div>
+
+    </div>
+
+    <div class="user-area">
+
+        <a href="/dashboard">Dashboard</a>
+
+        <button onclick="logout()">Logout</button>
+
+    </div>
+
+</header>
+
+<main class="dashboard">
+
+    <section class="welcome">
+
+        <div>
+
+            <p class="eyebrow">BUSINESS REPORTING</p>
+
+            <h2>Reports</h2>
+
+            <p>
+                View project and construction management reports.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="modules">
+
+        <h2>Available Reports</h2>
+
+        <div class="module-grid">
+
+            <div class="module-card">
+
+                <h3>🏗️ Project Report</h3>
+
+                <p>
+                    Overview of construction projects,
+                    status and locations.
+                </p>
+
+                <button>View Report →</button>
+
+            </div>
+
+            <div class="module-card">
+
+                <h3>👷 Worker Report</h3>
+
+                <p>
+                    Workforce and worker information.
+                </p>
+
+                <button>View Report →</button>
+
+            </div>
+
+            <div class="module-card">
+
+                <h3>📦 Material Report</h3>
+
+                <p>
+                    Material stock and inventory information.
+                </p>
+
+                <button>View Report →</button>
+
+            </div>
+
+            <div class="module-card">
+
+                <h3>📅 Attendance Report</h3>
+
+                <p>
+                    Worker attendance summary.
+                </p>
+
+                <button>View Report →</button>
+
+            </div>
+
+            <div class="module-card">
+
+                <h3>📋 Progress Report</h3>
+
+                <p>
+                    Daily construction progress summary.
+                </p>
+
+                <button>View Report →</button>
+
+            </div>
+
+            <div class="module-card">
+
+                <h3>⚙️ Equipment Report</h3>
+
+                <p>
+                    Equipment availability and condition.
+                </p>
+
+                <button>View Report →</button>
+
+            </div>
+
+            <div class="module-card">
+
+                <h3>🛡️ Safety Report</h3>
+
+                <p>
+                    Safety incidents and their status.
+                </p>
+
+                <button>View Report →</button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script>
+
+    function logout() {
+        window.location.href = "/";
+    }
+
+</script>
+
+</body>
+
+</html>

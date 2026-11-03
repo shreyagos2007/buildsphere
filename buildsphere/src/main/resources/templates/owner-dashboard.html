@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildSphere | Owner Portal</title>
+    <link rel="stylesheet" th:href="@{/css/owner-dashboard.css}">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="logo">BS</div>
+            <div>
+                <h2>BuildSphere</h2>
+                <p>OWNER PORTAL</p>
+            </div>
+        </div>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <a href="/owner-dashboard" class="nav-item active">▦ &nbsp; Overview</a>
+        <a href="/projects" class="nav-item">▤ &nbsp; My Projects</a>
+        <a href="/progress" class="nav-item">◷ &nbsp; Project Progress</a>
+        <a href="/workers" class="nav-item">♙ &nbsp; Workforce</a>
+        <a href="/materials" class="nav-item">▧ &nbsp; Materials</a>
+        <a href="/reports" class="nav-item">▥ &nbsp; Reports</a>
+
+        <div class="sidebar-bottom">
+            <div class="portal-note">
+                <strong>Owner Workspace</strong>
+                <p>Monitor your construction projects in one place.</p>
+            </div>
+            <button class="logout" onclick="window.location.href='/logout'">
+                ↪ &nbsp; Sign Out
+            </button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <span class="eyebrow">BUILDSPHERE / OWNER</span>
+                <h1>Owner Overview</h1>
+            </div>
+            <div class="profile">
+                <div class="avatar">O</div>
+                <div>
+                    <strong>Owner</strong>
+                    <span>Project Overview</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="welcome">
+            <div>
+                <span class="welcome-tag">YOUR PROJECTS, YOUR VISION</span>
+                <h2>Welcome to your workspace.</h2>
+                <p>Track progress, review your workforce and stay informed about your projects.</p>
+            </div>
+            <div class="welcome-icon">⌂</div>
+        </section>
+
+        <section class="section-heading">
+            <div>
+                <h2>Project Workspace</h2>
+                <p>Quick access to your construction operations</p>
+            </div>
+        </section>
+
+        <section class="cards">
+            <a href="/projects" class="feature-card project-card">
+                <div class="card-top">
+                    <span class="card-icon">▤</span>
+                    <span class="arrow">↗</span>
+                </div>
+                <span class="card-label">PROJECT MANAGEMENT</span>
+                <h3>My Projects</h3>
+                <p>Review projects and their current status.</p>
+                <span class="card-link">Explore projects →</span>
+            </a>
+
+            <a href="/progress" class="feature-card progress-card">
+                <div class="card-top">
+                    <span class="card-icon">◷</span>
+                    <span class="arrow">↗</span>
+                </div>
+                <span class="card-label">SITE PERFORMANCE</span>
+                <h3>Project Progress</h3>
+                <p>Review daily construction progress updates.</p>
+                <span class="card-link">View progress →</span>
+            </a>
+
+            <a href="/workers" class="feature-card workforce-card">
+                <div class="card-top">
+                    <span class="card-icon">♙</span>
+                    <span class="arrow">↗</span>
+                </div>
+                <span class="card-label">HUMAN RESOURCES</span>
+                <h3>Workforce</h3>
+                <p>Access worker information and records.</p>
+                <span class="card-link">View workforce →</span>
+            </a>
+
+            <a href="/materials" class="feature-card materials-card">
+                <div class="card-top">
+                    <span class="card-icon">▧</span>
+                    <span class="arrow">↗</span>
+                </div>
+                <span class="card-label">RESOURCE MANAGEMENT</span>
+                <h3>Materials</h3>
+                <p>Review construction material records.</p>
+                <span class="card-link">View materials →</span>
+            </a>
+        </section>
+
+        <section class="bottom-grid">
+            <div class="info-panel">
+                <span class="panel-icon">✓</span>
+                <div>
+                    <h3>Stay in control</h3>
+                    <p>Use your workspace to review project information and monitor construction activities.</p>
+                </div>
+            </div>
+
+            <a href="/reports" class="report-panel">
+                <div>
+                    <span class="eyebrow">PROJECT INSIGHTS</span>
+                    <h3>Reports & Records</h3>
+                    <p>Access available project reports.</p>
+                </div>
+                <span class="report-arrow">↗</span>
+            </a>
+        </section>
+
+        <footer>
+            <span>© 2026 BuildSphere</span>
+            <span>OWNER PORTAL · CONSTRUCTION MANAGEMENT</span>
+        </footer>
+    </main>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BuildSphere | Worker Dashboard</title>
+
+    <link rel="stylesheet" th:href="@{/css/worker-dashboard.css}">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <a href="/dashboard" class="brand">
+            <div class="logo">BS</div>
+
+            <div>
+                <h2>BuildSphere</h2>
+                <p>CONSTRUCTION MANAGEMENT</p>
+            </div>
+        </a>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <a href="/dashboard" class="nav-item active">
+            <span>▦</span> My Dashboard
+        </a>
+
+        <a href="/attendance" class="nav-item">
+            <span>✓</span> Attendance
+        </a>
+
+        <a href="/progress" class="nav-item">
+            <span>◷</span> Daily Progress
+        </a>
+
+        <a href="/projects" class="nav-item">
+            <span>▤</span> Project Records
+        </a>
+
+        <div class="sidebar-note">
+            <strong>Worker Portal</strong>
+            <p>Access your daily work and construction records.</p>
+        </div>
+
+        <div class="sidebar-bottom">
+            <button class="logout-btn"
+                    onclick="window.location.href='/logout'">
+                ↪ &nbsp; Sign Out
+            </button>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <span class="eyebrow">BUILDSPHERE / WORKER</span>
+                <h1>My Dashboard</h1>
+            </div>
+
+            <div class="profile">
+                <div class="avatar">W</div>
+
+                <div>
+                    <strong th:text="${username}">Worker</strong>
+                    <span>Worker Account</span>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- WELCOME BANNER -->
+        <section class="welcome">
+
+            <div>
+                <span class="welcome-label">WORKER WORKSPACE</span>
+
+                <h2>
+                    Welcome back,
+                    <span th:text="${username}">Worker</span>!
+                </h2>
+
+                <p>
+                    Manage your daily activities, review attendance
+                    and access your construction project records.
+                </p>
+            </div>
+
+            <div class="welcome-icon">BS</div>
+
+        </section>
+
+        <!-- QUICK ACCESS -->
+        <section class="section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>My Work</h2>
+                    <p>Quick access to your work-related modules.</p>
+                </div>
+            </div>
+
+            <div class="cards">
+
+                <a href="/attendance" class="feature-card">
+
+                    <div class="card-top">
+                        <div class="card-icon attendance-icon">✓</div>
+                        <span class="arrow">↗</span>
+                    </div>
+
+                    <span class="card-label">DAILY RECORD</span>
+                    <h3>Attendance</h3>
+
+                    <p>
+                        Access available attendance records
+                        through the attendance module.
+                    </p>
+
+                    <span class="card-link">Open Attendance →</span>
+
+                </a>
+
+                <a href="/progress" class="feature-card">
+
+                    <div class="card-top">
+                        <div class="card-icon progress-icon">◷</div>
+                        <span class="arrow">↗</span>
+                    </div>
+
+                    <span class="card-label">WORK UPDATES</span>
+                    <h3>Daily Progress</h3>
+
+                    <p>
+                        Review construction progress and
+                        available daily work updates.
+                    </p>
+
+                    <span class="card-link">View Progress →</span>
+
+                </a>
+
+                <a href="/projects" class="feature-card">
+
+                    <div class="card-top">
+                        <div class="card-icon project-icon">▤</div>
+                        <span class="arrow">↗</span>
+                    </div>
+
+                    <span class="card-label">SITE INFORMATION</span>
+                    <h3>Project Records</h3>
+
+                    <p>
+                        Open the projects module to access
+                        available construction project details.
+                    </p>
+
+                    <span class="card-link">View Projects →</span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- INFORMATION PANELS -->
+        <section class="bottom-grid">
+
+            <div class="info-panel">
+
+                <div class="info-icon">✓</div>
+
+                <div>
+                    <h3>Daily Work Management</h3>
+
+                    <p>
+                        Use the connected BuildSphere modules
+                        to review attendance and construction
+                        progress records.
+                    </p>
+                </div>
+
+            </div>
+
+            <a href="/attendance" class="report-panel">
+
+                <div>
+                    <span class="eyebrow">QUICK ACCESS</span>
+
+                    <h3>Attendance Records</h3>
+
+                    <p>Open the attendance management module.</p>
+                </div>
+
+                <span class="report-arrow">↗</span>
+
+            </a>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <span>© 2026 BuildSphere</span>
+            <span>WORKER PORTAL · CONSTRUCTION MANAGEMENT</span>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

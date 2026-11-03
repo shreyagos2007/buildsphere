@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    ```
+    <title>BuildSphere | Safety</title>
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    ```
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    ```
+    <div class="brand">
+        <div class="logo-mark">BS</div>
+
+        <div>
+            <h1>BuildSphere</h1>
+            <span>Construction Management</span>
+        </div>
+    </div>
+
+    <div class="user-area">
+        <a href="/dashboard">Dashboard</a>
+        <button onclick="logout()">Logout</button>
+    </div>
+    ```
+
+</header>
+
+<main class="dashboard">
+
+    ```
+    <section class="welcome">
+
+        <div>
+            <p class="eyebrow">SITE SAFETY</p>
+            <h2>Safety Management</h2>
+            <p>Record and monitor construction safety incidents.</p>
+        </div>
+
+    </section>
+
+    <!-- ADMIN AND OWNER: REPORT INCIDENT -->
+
+    <section class="module-card"
+             style="margin-bottom:30px;"
+             th:if="${role == 'ADMIN' or role == 'OWNER'}">
+
+        <h2>Report Safety Incident</h2>
+
+        <form th:action="@{/safety/save}"
+              th:object="${safety}"
+              method="post">
+
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+                <input type="text"
+                       th:field="*{project}"
+                       placeholder="Project"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="date"
+                       th:field="*{date}"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{incidentType}"
+                       placeholder="Incident Type"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <select th:field="*{severity}"
+                        required
+                        style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                    <option value="">Select Severity</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+
+                </select>
+
+                <input type="text"
+                       th:field="*{description}"
+                       placeholder="Description"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <select th:field="*{status}"
+                        required
+                        style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                    <option value="">Select Status</option>
+                    <option value="Open">Open</option>
+                    <option value="Resolved">Resolved</option>
+
+                </select>
+
+            </div>
+
+            <button type="submit"
+                    style="margin-top:20px;padding:11px 20px;background:#0b2d5c;color:white;border:none;border-radius:8px;">
+
+                + Save Safety Record
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- SAFETY RECORDS: ADMIN AND OWNER -->
+
+    <section class="modules">
+
+        <h2 th:text="${role == 'OWNER'} ? 'Safety Overview' : 'Safety Records'">
+            Safety Records
+        </h2>
+
+        <div class="module-card">
+
+            <div style="overflow-x:auto;">
+
+                <table style="width:100%;border-collapse:collapse;">
+
+                    <thead>
+
+                    <tr style="text-align:left;border-bottom:2px solid #e5e9f2;">
+
+                        <th style="padding:14px;">ID</th>
+                        <th style="padding:14px;">Project</th>
+                        <th style="padding:14px;">Date</th>
+                        <th style="padding:14px;">Type</th>
+                        <th style="padding:14px;">Description</th>
+                        <th style="padding:14px;">Severity</th>
+                        <th style="padding:14px;">Status</th>
+
+                        <th style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+                            Action
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="s : ${safetyList}"
+                        style="border-bottom:1px solid #e5e9f2;">
+
+                        <td style="padding:14px;" th:text="${s.id}"></td>
+                        <td style="padding:14px;" th:text="${s.project}"></td>
+                        <td style="padding:14px;" th:text="${s.date}"></td>
+                        <td style="padding:14px;" th:text="${s.incidentType}"></td>
+                        <td style="padding:14px;" th:text="${s.description}"></td>
+                        <td style="padding:14px;" th:text="${s.severity}"></td>
+                        <td style="padding:14px;" th:text="${s.status}"></td>
+
+                        <!-- ADMIN ONLY: DELETE -->
+
+                        <td style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+
+                            <a th:href="@{/safety/delete/{id}(id=${s.id})}"
+                               onclick="return confirm('Delete this safety record?');"
+                               style="color:#b42318;font-weight:600;text-decoration:none;">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(safetyList)}">
+
+                        <td th:colspan="${role == 'ADMIN' ? 8 : 7}"
+                            style="padding:30px;text-align:center;color:#7a8497;">
+
+                            No safety records yet.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+    ```
+
+</main>
+
+<script>
+    function logout() {
+        window.location.href = "/";
+    }
+</script>
+
+</body>
+</html>

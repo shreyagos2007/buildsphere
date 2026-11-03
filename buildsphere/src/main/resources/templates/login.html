@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuildSphere | Sign In</title>
+
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- Left Brand Section -->
+    <section class="brand-section">
+
+        <div class="brand">
+            <div class="logo-mark">
+                BS
+            </div>
+
+            <div>
+                <h1>BuildSphere</h1>
+                <p>Construction Management Platform</p>
+            </div>
+        </div>
+
+        <div class="brand-content">
+            <span class="tag">BUILD • MANAGE • DELIVER</span>
+
+            <h2>
+                Build smarter.<br>
+                Manage better.
+            </h2>
+
+            <p>
+                Manage projects, workers, materials, equipment,
+                attendance and daily progress from one powerful platform.
+            </p>
+        </div>
+
+        <div class="brand-footer">
+            © 2026 BuildSphere
+        </div>
+
+    </section>
+
+
+    <!-- Login Section -->
+    <main class="login-section">
+
+        <div class="login-card">
+
+            <div class="mobile-logo">
+                <div class="logo-mark">BS</div>
+                <span>BuildSphere</span>
+            </div>
+
+            <div class="login-heading">
+                <span>WELCOME BACK</span>
+                <h2>Sign in to your account</h2>
+                <p>Enter your credentials to continue.</p>
+            </div>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+
+                    <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                            required
+                    >
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="password-label">
+                        <label for="password">Password</label>
+                        <a href="#">Forgot password?</a>
+                    </div>
+
+                    <div class="password-box">
+
+                        <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                        >
+
+                        <button
+                                type="button"
+                                id="togglePassword"
+                                aria-label="Show password">
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div id="loginMessage" class="login-message"></div>
+
+
+                <button type="submit" class="login-button">
+                    <span>Sign In</span>
+                    <span class="arrow">→</span>
+                </button>
+
+            </form>
+
+
+            <div class="demo-info">
+                <strong>Demo Access</strong>
+                <p>Username: <b>admin</b> &nbsp; Password: <b>1234</b></p>
+            </div>
+
+
+            <p class="security-note">
+                🔒 Secure access to your BuildSphere workspace
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script th:src="@{/js/login.js}" defer></script>
+
+</body>
+</html>

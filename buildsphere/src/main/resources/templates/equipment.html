@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    ```
+    <title>BuildSphere | Equipment</title>
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    ```
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    ```
+    <div class="brand">
+        <div class="logo-mark">BS</div>
+
+        <div>
+            <h1>BuildSphere</h1>
+            <span>Construction Management</span>
+        </div>
+    </div>
+
+    <div class="user-area">
+        <a href="/dashboard">Dashboard</a>
+        <button onclick="logout()">Logout</button>
+    </div>
+    ```
+
+</header>
+
+<main class="dashboard">
+
+    ```
+    <section class="welcome">
+
+        <div>
+            <p class="eyebrow">EQUIPMENT MANAGEMENT</p>
+            <h2>Equipment</h2>
+            <p>Track construction equipment and availability.</p>
+        </div>
+
+    </section>
+
+    <!-- ADMIN ONLY: ADD EQUIPMENT -->
+
+    <section class="module-card"
+             style="margin-bottom:30px;"
+             th:if="${role == 'ADMIN'}">
+
+        <h2>Add Equipment</h2>
+
+        <form th:action="@{/equipment/save}"
+              th:object="${equipment}"
+              method="post">
+
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+                <input type="text"
+                       th:field="*{name}"
+                       placeholder="Equipment Name"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{type}"
+                       placeholder="Equipment Type"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{project}"
+                       placeholder="Project"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <select th:field="*{condition}"
+                        required
+                        style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                    <option value="">Select Condition</option>
+                    <option value="Good">Good</option>
+                    <option value="Needs Maintenance">Needs Maintenance</option>
+                    <option value="Damaged">Damaged</option>
+
+                </select>
+
+                <select th:field="*{status}"
+                        required
+                        style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                    <option value="">Select Status</option>
+                    <option value="Available">Available</option>
+                    <option value="In Use">In Use</option>
+                    <option value="Maintenance">Maintenance</option>
+
+                </select>
+
+            </div>
+
+            <button type="submit"
+                    style="margin-top:20px;padding:11px 20px;background:#0b2d5c;color:white;border:none;border-radius:8px;">
+
+                + Add Equipment
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- EQUIPMENT LIST: ADMIN AND OWNER -->
+
+    <section class="modules">
+
+        <h2 th:text="${role == 'OWNER'} ? 'Equipment Overview' : 'Equipment List'">
+            Equipment List
+        </h2>
+
+        <div class="module-card">
+
+            <div style="overflow-x:auto;">
+
+                <table style="width:100%;border-collapse:collapse;">
+
+                    <thead>
+
+                    <tr style="text-align:left;border-bottom:2px solid #e5e9f2;">
+
+                        <th style="padding:14px;">ID</th>
+                        <th style="padding:14px;">Name</th>
+                        <th style="padding:14px;">Type</th>
+                        <th style="padding:14px;">Project</th>
+                        <th style="padding:14px;">Condition</th>
+                        <th style="padding:14px;">Status</th>
+
+                        <th style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+                            Action
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="e : ${equipmentList}"
+                        style="border-bottom:1px solid #e5e9f2;">
+
+                        <td style="padding:14px;" th:text="${e.id}"></td>
+                        <td style="padding:14px;" th:text="${e.name}"></td>
+                        <td style="padding:14px;" th:text="${e.type}"></td>
+                        <td style="padding:14px;" th:text="${e.project}"></td>
+                        <td style="padding:14px;" th:text="${e.condition}"></td>
+                        <td style="padding:14px;" th:text="${e.status}"></td>
+
+                        <!-- ADMIN ONLY: DELETE -->
+
+                        <td style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+
+                            <a th:href="@{/equipment/delete/{id}(id=${e.id})}"
+                               onclick="return confirm('Delete this equipment?');"
+                               style="color:#b42318;font-weight:600;text-decoration:none;">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(equipmentList)}">
+
+                        <td th:colspan="${role == 'ADMIN' ? 7 : 6}"
+                            style="padding:30px;text-align:center;color:#7a8497;">
+
+                            No equipment added yet.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+    ```
+
+</main>
+
+<script>
+    function logout() {
+        window.location.href = "/";
+    }
+</script>
+
+</body>
+</html>

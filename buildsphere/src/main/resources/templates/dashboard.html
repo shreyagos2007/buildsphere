@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BuildSphere | Dashboard</title>
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="logo-mark">
+            BS
+        </div>
+
+        <div>
+            <h1>BuildSphere</h1>
+            <span>Construction Management</span>
+        </div>
+
+    </div>
+
+    <div class="user-area">
+        <span th:text="${username}">Admin</span>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+</header>
+
+
+<main class="dashboard">
+
+    <!-- Welcome -->
+    <section class="welcome">
+
+        <div>
+            <p class="eyebrow">PROJECT OVERVIEW</p>
+
+            <h2>
+                Welcome back, <span th:text="${username}">Admin</span> 👋
+            </h2>
+
+            <p>
+                Monitor your construction operations from one place.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- LIVE DATABASE STATISTICS -->
+    <section class="stats">
+
+        <!-- Projects -->
+        <div class="stat-card">
+            <span>Active Projects</span>
+            <strong th:text="${activeProjects}">0</strong>
+        </div>
+
+
+        <!-- Workers -->
+        <div class="stat-card">
+            <span>Total Workers</span>
+            <strong th:text="${totalWorkers}">0</strong>
+        </div>
+
+
+        <!-- Materials -->
+        <div class="stat-card">
+            <span>Materials</span>
+            <strong th:text="${totalMaterials}">0</strong>
+        </div>
+
+
+        <!-- Equipment -->
+        <div class="stat-card">
+            <span>Equipment</span>
+            <strong th:text="${totalEquipment}">0</strong>
+        </div>
+
+
+        <!-- Attendance -->
+        <div class="stat-card">
+            <span>Attendance Records</span>
+            <strong th:text="${totalAttendance}">0</strong>
+        </div>
+
+
+        <!-- Daily Progress -->
+        <div class="stat-card">
+            <span>Daily Progress</span>
+            <strong th:text="${totalProgress}">0</strong>
+        </div>
+
+
+        <!-- Safety -->
+        <div class="stat-card">
+            <span>Safety Records</span>
+            <strong th:text="${totalSafety}">0</strong>
+        </div>
+
+
+        <!-- Reports -->
+        <div class="stat-card">
+            <span>Reports</span>
+            <strong th:text="${totalReports}">0</strong>
+        </div>
+
+    </section>
+
+
+    <!-- MANAGEMENT MODULES -->
+    <section class="modules">
+
+        <h2>Management Modules</h2>
+
+        <div class="module-grid">
+
+
+            <!-- Projects -->
+            <div class="module-card">
+
+                <h3>🏗️ Projects</h3>
+
+                <p>
+                    Manage construction projects and progress.
+                </p>
+
+                <a href="/projects"
+                   style="width:fit-content;
+                          color:#0b5cab;
+                          font-weight:700;
+                          text-decoration:none;
+                          padding:8px 0;">
+                    Open Module →
+                </a>
+
+            </div>
+
+
+            <!-- Workers -->
+            <div class="module-card">
+
+                <h3>👷 Workers</h3>
+
+                <p>
+                    Manage workers and workforce information.
+                </p>
+
+                <a href="/workers"
+                   style="width:fit-content;
+                          color:#0b5cab;
+                          font-weight:700;
+                          text-decoration:none;
+                          padding:8px 0;">
+                    Open Module →
+                </a>
+
+            </div>
+
+
+            <!-- Materials -->
+            <div class="module-card">
+
+                <h3>📦 Materials</h3>
+
+                <p>
+                    Track material stock and usage.
+                </p>
+
+                <a href="/materials"
+                   style="width:fit-content;
+                          color:#0b5cab;
+                          font-weight:700;
+                          text-decoration:none;
+                          padding:8px 0;">
+                    Open Module →
+                </a>
+
+            </div>
+
+
+            <!-- Attendance -->
+            <div class="module-card">
+
+                <h3>📅 Attendance</h3>
+
+                <p>
+                    Monitor daily worker attendance.
+                </p>
+
+                <a href="/attendance"
+                   style="width:fit-content;
+                          color:#0b5cab;
+                          font-weight:700;
+                          text-decoration:none;
+                          padding:8px 0;">
+                    Open Module →
+                </a>
+
+            </div>
+
+
+            <!-- Daily Progress -->
+            <div class="module-card">
+
+                <h3>📋 Daily Progress</h3>
+
+                <p>
+                    Record and monitor daily progress reports.
+                </p>
+
+                <a href="/progress"
+                   style="width:fit-content;
+                          color:#0b5cab;
+                          font-weight:700;
+                          text-decoration:none;
+                          padding:8px 0;">
+                    Open Module →
+                </a>
+
+            </div>
+
+
+            <!-- Equipment -->
+            <div class="module-card">
+
+                <h3>⚙️ Equipment</h3>
+
+                <p>
+                    Track construction equipment and availability.
+                </p>
+
+                <a href="/equipment"
+                   style="width:fit-content;
+                          color:#0b5cab;
+                          font-weight:700;
+                          text-decoration:none;
+                          padding:8px 0;">
+                    Open Module →
+                </a>
+
+            </div>
+
+
+            <!-- Safety -->
+            <div class="module-card">
+
+                <h3>🛡️ Safety</h3>
+
+                <p>
+                    Monitor safety violations and incidents.
+                </p>
+
+                <a href="/safety"
+                   style="width:fit-content;
+                          color:#0b5cab;
+                          font-weight:700;
+                          text-decoration:none;
+                          padding:8px 0;">
+                    Open Module →
+                </a>
+
+            </div>
+
+
+            <!-- Reports -->
+            <div class="module-card">
+
+                <h3>📊 Reports</h3>
+
+                <p>
+                    View project and operational reports.
+                </p>
+
+                <a href="/reports"
+                   style="width:fit-content;
+                          color:#0b5cab;
+                          font-weight:700;
+                          text-decoration:none;
+                          padding:8px 0;">
+                    Open Module →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    function logout() {
+        window.location.href = "/";
+    }
+
+</script>
+
+</body>
+
+</html>

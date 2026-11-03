@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    ```
+    <title>BuildSphere | Projects</title>
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    ```
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    ```
+    <div class="brand">
+        <div class="logo-mark">BS</div>
+
+        <div>
+            <h1>BuildSphere</h1>
+            <span>Construction Management</span>
+        </div>
+    </div>
+
+    <div class="user-area">
+        <a href="/dashboard">Dashboard</a>
+        <button onclick="logout()">Logout</button>
+    </div>
+    ```
+
+</header>
+
+<main class="dashboard">
+
+    ```
+    <section class="welcome">
+
+        <div>
+            <p class="eyebrow">PROJECT MANAGEMENT</p>
+
+            <h2>Construction Projects</h2>
+
+            <p th:if="${role == 'ADMIN'}">
+                Create and manage your construction projects.
+            </p>
+
+            <p th:if="${role == 'OWNER'}">
+                View and monitor your construction projects.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- ADMIN ONLY: ADD PROJECT -->
+
+    <section class="module-card"
+             style="margin-bottom:30px;"
+             th:if="${role == 'ADMIN'}">
+
+        <h2>Add New Project</h2>
+
+        <form th:action="@{/projects/save}"
+              th:object="${project}"
+              method="post">
+
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:20px;">
+
+                <input type="text"
+                       th:field="*{name}"
+                       placeholder="Project Name"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{client}"
+                       placeholder="Client Name"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <input type="text"
+                       th:field="*{location}"
+                       placeholder="Project Location"
+                       required
+                       style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                <select th:field="*{status}"
+                        required
+                        style="padding:12px;border:1px solid #ddd;border-radius:8px;">
+
+                    <option value="">Select Status</option>
+                    <option value="Planning">Planning</option>
+                    <option value="Active">Active</option>
+                    <option value="Completed">Completed</option>
+                    <option value="On Hold">On Hold</option>
+
+                </select>
+
+            </div>
+
+            <button type="submit"
+                    style="margin-top:20px;padding:11px 20px;background:#0b2d5c;color:white;border:none;border-radius:8px;cursor:pointer;">
+
+                + Add Project
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- PROJECT LIST: ADMIN AND OWNER -->
+
+    <section class="modules">
+
+        <h2 th:text="${role == 'OWNER' ? 'My Projects' : 'All Projects'}">
+            All Projects
+        </h2>
+
+        <div class="module-card">
+
+            <div style="overflow-x:auto;">
+
+                <table style="width:100%;border-collapse:collapse;">
+
+                    <thead>
+
+                    <tr style="text-align:left;border-bottom:2px solid #e5e9f2;">
+
+                        <th style="padding:14px;">ID</th>
+                        <th style="padding:14px;">Project Name</th>
+                        <th style="padding:14px;">Client</th>
+                        <th style="padding:14px;">Location</th>
+                        <th style="padding:14px;">Status</th>
+
+                        <th style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+                            Action
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="p : ${projects}"
+                        style="border-bottom:1px solid #e5e9f2;">
+
+                        <td style="padding:14px;" th:text="${p.id}"></td>
+
+                        <td style="padding:14px;" th:text="${p.name}"></td>
+
+                        <td style="padding:14px;" th:text="${p.client}"></td>
+
+                        <td style="padding:14px;" th:text="${p.location}"></td>
+
+                        <td style="padding:14px;" th:text="${p.status}"></td>
+
+                        <!-- ADMIN ONLY: DELETE -->
+
+                        <td style="padding:14px;"
+                            th:if="${role == 'ADMIN'}">
+
+                            <a th:href="@{/projects/delete/{id}(id=${p.id})}"
+                               onclick="return confirm('Delete this project?');"
+                               style="color:#b42318;font-weight:600;text-decoration:none;">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(projects)}">
+
+                        <td th:attr="colspan=${role == 'ADMIN' ? 6 : 5}"
+                            style="padding:30px;text-align:center;color:#7a8497;">
+
+                            No projects added yet.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+    ```
+
+</main>
+
+<script>
+
+    function logout() {
+        window.location.href = "/";
+    }
+
+</script>
+
+</body>
+</html>
